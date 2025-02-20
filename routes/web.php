@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +28,20 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+});
+
+
+Route::middleware(['role:admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
+    // Other admin routes
+});
+
+Route::middleware(['role:shop'])->group(function () {
+    Route::get('/shop/dashboard', [ShopController::class, 'dashboard']);
+    // Other shop routes
+});
+
+Route::middleware(['role:user'])->group(function () {
+    Route::get('/user/dashboard', [UserController::class, 'dashboard']);
+    // Other user routes
 });
