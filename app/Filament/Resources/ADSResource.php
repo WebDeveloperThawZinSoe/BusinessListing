@@ -113,6 +113,16 @@ class ADSResource extends Resource
                     ->query(fn (Builder $query): Builder => $query->where('is_active', true)),
                 Tables\Filters\Filter::make('Inactive')
                     ->query(fn (Builder $query): Builder => $query->where('is_active', false)),
+                Tables\Filters\Filter::make('Banner')
+                    ->query(fn (Builder $query): Builder => $query->where('type','banner')),
+                Tables\Filters\Filter::make('Left Side')
+                    ->query(fn (Builder $query): Builder => $query->where('type','left_size')),
+                Tables\Filters\Filter::make('Right Side')
+                    ->query(fn (Builder $query): Builder => $query->where('type','right_size')),
+                Tables\Filters\Filter::make('Content Center')
+                    ->query(fn (Builder $query): Builder => $query->where('type','content_center')),
+                Tables\Filters\Filter::make('Footer')
+                    ->query(fn (Builder $query): Builder => $query->where('type','footer')),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
