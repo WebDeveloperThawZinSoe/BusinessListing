@@ -54,4 +54,10 @@ class Shop extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+
+    public function photo()
+    {
+        return $this->hasMany(ShopGallery::class);
+    }
 }
