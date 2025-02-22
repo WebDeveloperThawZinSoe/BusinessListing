@@ -39,4 +39,9 @@ class Shop extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function socialAccounts()
+    {
+        return $this->hasMany(SocialAccount::class);
+    }
 }
