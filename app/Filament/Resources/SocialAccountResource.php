@@ -73,7 +73,8 @@ class SocialAccountResource extends Resource
                 ->label('Shop')
                 ->sortable(),
             TextColumn::make('account')
-                ->label('Social Media'),
+                ->label('Social Media')
+                ->sortable(),
             TextColumn::make('link')
                 ->label('Profile/Channel Link')
                 ->url(fn ($record) => $record->link)

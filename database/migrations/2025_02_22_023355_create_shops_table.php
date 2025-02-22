@@ -26,6 +26,10 @@ return new class extends Migration
             $table->string("latitude")->nullable();
             $table->string("longitude")->nullable();
             $table->boolean("is_active")->default(true);
+            $table->boolean("is_recommanded")->default(false);
+            $table->boolean("is_verified")->default(false);
+            $table->boolean("is_featured")->default(false);
+            $table->boolean("is_suspended")->default(false);
             $table->timestamps();
         });
     }

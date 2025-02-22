@@ -53,7 +53,7 @@ class ShopResource extends Resource
                 ->required()
                 ->maxLength(255),
             TextInput::make('slug')
-                ->unique()
+                ->unique(Shop::class, 'slug', fn ($record) => $record)
                 ->required()
                 ->maxLength(255),
             RichEditor::make('description')
@@ -84,6 +84,14 @@ class ShopResource extends Resource
                 ->maxLength(255),
             Forms\Components\Toggle::make('is_active')
                 ->default(true),
+            Forms\Components\Toggle::make('is_recommanded')
+                ->default(false),
+            Forms\Components\Toggle::make('is_verified')
+                ->default(false),
+            Forms\Components\Toggle::make('is_featured')
+                ->default(false),
+            Forms\Components\Toggle::make('is_suspended')
+                ->default(false),
         ]);
     }
 
@@ -101,6 +109,18 @@ class ShopResource extends Resource
                 Tables\Columns\BooleanColumn::make('is_active')
                     ->sortable()
                     ->label('Active'),
+                Tables\Columns\BooleanColumn::make('is_recommanded')
+                    ->sortable()
+                    ->label('Recommanded'),
+                Tables\Columns\BooleanColumn::make('is_verified')
+                    ->sortable()
+                    ->label('Verified'),
+                Tables\Columns\BooleanColumn::make('is_featured')
+                    ->sortable()
+                    ->label('Featured'),
+                Tables\Columns\BooleanColumn::make('is_suspended')
+                    ->sortable()
+                    ->label('Suspended'),
                 TextColumn::make('created_at')->dateTime()->sortable(),
             ])
             ->filters([
@@ -112,6 +132,14 @@ class ShopResource extends Resource
                     ->query(fn (Builder $query): Builder => $query->where('is_active', true)),
                 Tables\Filters\Filter::make('Inactive')
                     ->query(fn (Builder $query): Builder => $query->where('is_active', false)),
+                Tables\Filters\Filter::make('Supsended')
+                    ->query(fn (Builder $query): Builder => $query->where('is_suspended', true)),
+                Tables\Filters\Filter::make('Verified')
+                    ->query(fn (Builder $query): Builder => $query->where('is_verified', true)),
+                Tables\Filters\Filter::make('Featured')
+                    ->query(fn (Builder $query): Builder => $query->where('is_featured', true)),
+                Tables\Filters\Filter::make('Recommanded')
+                    ->query(fn (Builder $query): Builder => $query->where('is_recommanded', true)),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

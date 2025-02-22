@@ -22,7 +22,11 @@ class Shop extends Model
         "address",
         "latitude",
         "longitude",
-        "is_active"
+        "is_active",
+        "is_recommanded",
+        "is_verified",
+        "is_featured",
+        "is_suspended",
     ];
 
     public function user()
@@ -43,5 +47,11 @@ class Shop extends Model
     public function socialAccounts()
     {
         return $this->hasMany(SocialAccount::class);
+    }
+
+
+    public function product()
+    {
+        return $this->hasMany(Product::class);
     }
 }

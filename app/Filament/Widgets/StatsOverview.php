@@ -8,6 +8,7 @@ use App\Models\ADS;
 use App\Models\City;
 use App\Models\Category;
 use App\Models\Shop;
+use App\Models\Product;
 
 class StatsOverview extends BaseWidget
 {
@@ -18,17 +19,21 @@ class StatsOverview extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Shop', Shop::where("is_active",1)->count())
-            ->description('Shop List On Our Platform')
+            Stat::make('Shop', Shop::count())
+            ->description('Shop Count On Our Platform')
+            ->color('success'),
+            Stat::make('Product', Product::count())
+            ->description('Product Count On Our Platform')
             ->color('success'),
             Stat::make('ADS', ADS::where("is_active",1)->count())
-                ->description('ADS List On Our Platform')
+                ->description('Active ADS Count On Our Platform')
                 ->color('success'),
             Stat::make('City', City::where("is_active",1)->count())
-                ->description('City List On Our Platform')
+                ->description('Active City Count On Our Platform')
                 ->color('success'),
-            Stat::make('Today Traffic', '30K')
-                ->description('7% increase'),
+            Stat::make('Category', Category::where("is_active",1)->count())
+                ->description('Active Category Count On Our Platform')
+                ->color('success'),
             Stat::make('Average time on page', '3:12')
                 ->description('3% increase'),
                 
