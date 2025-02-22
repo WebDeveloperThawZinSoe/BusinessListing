@@ -24,6 +24,9 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
+
+    protected static ?int $navigationSort = 4;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -43,15 +46,17 @@ class UserResource extends Resource
                 ->maxLength(255)
                 ->dehydrateStateUsing(fn ($state) => bcrypt($state)),
 
-            // Role Assignment
-            Select::make('role')
+                Select::make('role')
                 ->label('Assign Role')
                 ->options(Role::pluck('name', 'name')->toArray())
                 ->default('shop')
                 ->searchable()
                 ->preload()
                 ->required()
-                ->afterStateUpdated(fn ($state, $record) => $record?->syncRoles([$state])),
+                ->dehydrated(false) // Prevents Laravel from storing in users table
+                ->afterStateHydrated(fn ($state, $record) => $state ??= $record?->roles->first()?->name)
+                ->afterStateUpdated(fn ($state, $record) => $record?->syncRoles($state)),
+            
         ]);
     }
 
