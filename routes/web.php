@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RouteCheckController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,12 +26,13 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
+    Route::get('/dashboard', function(){
+        return redirect("/route/check");
     })->name('dashboard');
 });
 
 
+Route::get("/route/check", [RouteCheckController::class, 'check']);
 
 Route::middleware(['role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
