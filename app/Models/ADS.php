@@ -25,10 +25,10 @@ class ADS extends Model
         if ($this->image) {
             \Storage::disk('public')->delete($this->image);
         }
-        // Delete all subcategories first
-        $this->children()->delete();
+        // // Delete all subcategories first
+        // $this->children()->delete();
 
-        // Then delete the category itself
+        // // Then delete the category itself
         return parent::delete();
     }
 }
