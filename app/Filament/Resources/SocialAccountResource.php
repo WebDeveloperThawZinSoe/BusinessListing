@@ -26,9 +26,9 @@ class SocialAccountResource extends Resource
 {
     protected static ?string $model = SocialAccount::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-c-share';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 13;
 
     public static function form(Form $form): Form
     {

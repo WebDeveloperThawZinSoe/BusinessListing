@@ -25,9 +25,9 @@ class ShopGalleryResource extends Resource
 {
     protected static ?string $model = ShopGallery::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-c-camera';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 14;
 
     public static function form(Form $form): Form
     {
