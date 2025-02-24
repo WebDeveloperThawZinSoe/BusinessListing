@@ -31,6 +31,7 @@ Route::middleware([
 });
 
 
+
 Route::middleware(['role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
     // Other admin routes
