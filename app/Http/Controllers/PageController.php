@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Shop;
+use App\Models\SocialAccount;
+use App\Models\Product;
+use App\Models\ShopGallery;
 
 class PageController extends Controller
 {
@@ -51,7 +54,10 @@ class PageController extends Controller
     //shop detail
     public function shopDetail($slag){
         $shop = Shop::where("slug",$slag)->where("is_active",1)->where("is_suspended",0)->firstOrFail();
-        return view("web.shopDetail",compact("shop"));
+        $socials  = SocialAccount::where("shop_id",$shop->id)->where("is_active",1)->get();
+        $shopGallerys = ShopGallery::where("shop_id",$shop->id)->inRandomOrder()->take(9)->get();
+        $products = Product::where("shop_id",$shop->id)->where('is_active',1)->where("is_suspended",0)->paginate(15);
+        return view("web.shopDetail",compact("shop","socials","shopGallerys","products"));
     }
 
     //product detail

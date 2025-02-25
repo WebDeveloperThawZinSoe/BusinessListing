@@ -43,14 +43,14 @@ class ProductResource extends Resource
                 ->required()
                 ->maxLength(255),
             // Select box for predefined types
-            Select::make('type')
-            ->label('Select Type')
-            ->options([
-                'product' => 'Product',
-                'service' => 'Service'
-            ])
-            ->default('product') // Set default value
-            ->required(),
+            // Select::make('type')
+            // ->label('Select Type')
+            // ->options([
+            //     'product' => 'Product',
+            //     'service' => 'Service'
+            // ])
+            // ->default('product') // Set default value
+            // ->required(),
             RichEditor::make('description')
             ->toolbarButtons([
                 'bold', 'italic', 'underline', 'strike',

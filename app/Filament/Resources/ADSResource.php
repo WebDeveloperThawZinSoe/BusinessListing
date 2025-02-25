@@ -42,8 +42,8 @@ class ADSResource extends Resource
                 ->label('Select Position')
                 ->options([
                     'banner' => 'Banner',
-                    'left_size' => 'Left Side',
-                    'right_size' => 'Right Side',
+                    'left_side' => 'Left Side',
+                    'right_side' => 'Right Side',
                     'content_center' => 'Content Center',
                     'footer' => 'Footer',
                 ])
@@ -79,15 +79,15 @@ class ADSResource extends Resource
                     ->label('Position')
                     ->getStateUsing(fn ($record) => [
                         'banner' => 'Banner',
-                        'left_size' => 'Left Side',
-                        'right_size' => 'Right Side',
+                        'left_side' => 'Left Side',
+                        'right_side' => 'Right Side',
                         'content_center' => 'Content Center',
                         'footer' => 'Footer',
                     ][$record->type] ?? 'Unknown') // Default to 'Unknown' if no matching type is found
                     ->colors([
                         'banner' => 'primary',
-                        'left_size' => 'success',
-                        'right_size' => 'warning',
+                        'left_side' => 'success',
+                        'right_side' => 'warning',
                         'content_center' => 'info',
                         'footer' => 'danger',
                         'default' => 'secondary', // Use for 'Unknown' or unhandled types
