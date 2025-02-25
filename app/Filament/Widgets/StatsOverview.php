@@ -9,6 +9,9 @@ use App\Models\City;
 use App\Models\Category;
 use App\Models\Shop;
 use App\Models\Product;
+use App\Models\Traffic;
+use Carbon\Carbon;
+
 
 class StatsOverview extends BaseWidget
 {
@@ -18,6 +21,7 @@ class StatsOverview extends BaseWidget
 
     protected function getStats(): array
     {
+        $todayTraffic = Traffic::where("date",Carbon::today())->value("count");
         return [
             Stat::make('Shop', Shop::count())
             ->description('Shop Count On Our Platform')
@@ -34,9 +38,8 @@ class StatsOverview extends BaseWidget
             Stat::make('Category', Category::where("is_active",1)->count())
                 ->description('Active Category Count On Our Platform')
                 ->color('success'),
-            Stat::make('Average time on page', '3:12')
-                ->description('3% increase'),
-                
+            Stat::make('Today Traffic',$todayTraffic )
+                ->color('success'),
         ];
     }
 }
