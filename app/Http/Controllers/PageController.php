@@ -55,7 +55,9 @@ class PageController extends Controller
 
     //shops
     public function shops(){
-
+        $feature_shops =  Shop::where("is_featured",1)->where("is_active",1)->where("is_suspended",0)->orderBy("id","desc")->get();
+        $other_shops =  Shop::where("is_featured",0)->where("is_active",1)->where("is_suspended",0)->orderBy("id","desc")->get();
+        return view("web.shops",compact("feature_shops","other_shops"));
     }
 
     //shop detail

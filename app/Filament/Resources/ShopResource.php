@@ -59,7 +59,7 @@ class ShopResource extends Resource
             RichEditor::make('description')
                 ->toolbarButtons([
                     'bold', 'italic', 'underline', 'strike',
-                    'h2', 'h3', 'blockquote',
+                    'blockquote',
                     'bulletList', 'orderedList',
                     'link', 'codeBlock'
                 ])
