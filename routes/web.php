@@ -50,11 +50,12 @@ Route::get("/route/check", [RouteCheckController::class, 'check'])->name("routeC
 
 
 Route::get("/",[PageController::class, 'index'])->name("home");
-Route::get("/category/{slag}",[PageController::class, 'categoryDetail'])->name("categoryDetail");
+Route::get("/category/{slug}",[PageController::class, 'categoryDetail'])->name("categoryDetail");
 Route::get("/regions",[PageController::class,"regions"])->name("region");
+Route::get("/region/{slug}",[PageController::class,"regionDetail"])->name("regionDetail");
 Route::get("/products",[PageController::class,"products"])->name("products");
-Route::get("/product/{slag}",[PageController::class,"productDetail"])->name("product");
+Route::get("/product/{slug}",[PageController::class,"productDetail"])->name("product");
 Route::get("/shops",[PageController::class,"shops"])->name("shops");
-Route::get("/shop/{slag}",[PageController::class,"shopDetail"])->name("shop");
+Route::get("/shop/{slug}",[PageController::class,"shopDetail"])->name("shop");
 Route::get("/faq",[PageController::class,"faq"])->name("faq");
 Route::get("/contact",[PageController::class,"contact"])->name("contact");
