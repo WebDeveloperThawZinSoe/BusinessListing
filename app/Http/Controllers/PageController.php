@@ -9,6 +9,7 @@ use App\Models\Shop;
 use App\Models\SocialAccount;
 use App\Models\Product;
 use App\Models\ShopGallery;
+use App\Models\FAQ;
 
 class PageController extends Controller
 {
@@ -45,7 +46,8 @@ class PageController extends Controller
 
     //faq
     public function faq(){
-
+       $faqs = FAQ::where("is_active",1)->get();
+       return view("web.faq",compact("faqs"));
     }
 
     //contact
@@ -69,8 +71,5 @@ class PageController extends Controller
         return view("web.shopDetail",compact("shop","socials","shopGallerys","products"));
     }
 
-    //product detail
-    public function productDetail($slug){
 
-    }
 }

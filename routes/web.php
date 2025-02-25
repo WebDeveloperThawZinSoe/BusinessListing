@@ -54,7 +54,6 @@ Route::get("/category/{slug}",[PageController::class, 'categoryDetail'])->name("
 Route::get("/regions",[PageController::class,"regions"])->name("region");
 Route::get("/region/{slug}",[PageController::class,"regionDetail"])->name("regionDetail");
 Route::get("/products",[PageController::class,"products"])->name("products");
-Route::get("/product/{slug}",[PageController::class,"productDetail"])->name("product");
 Route::get("/shops",[PageController::class,"shops"])->name("shops");
 Route::get("/shop/{slug}",[PageController::class,"shopDetail"])->name("shop");
 Route::get("/faq",[PageController::class,"faq"])->name("faq");
