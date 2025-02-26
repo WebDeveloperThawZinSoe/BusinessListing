@@ -26,7 +26,7 @@ class PageController extends Controller
     public function categoryDetail($slug){
         $this->UpdateViewCount();
         $category = Category::where("slug",$slug)->where("is_active",1)->firstOrFail();
-        $shops = Shop::where("category_id",$category->id)->where("is_active",1)->where("is_suspended",0)->orderBy("id","desc")->get();
+        $shops = Shop::where("category_id",$category->id)->where("is_active",1)->where("is_suspended",0)->orderBy("id","desc")->paginate(15);
         return view("web.category",compact("category","shops"));
     }
 
@@ -41,7 +41,7 @@ class PageController extends Controller
     public function regionDetail($slug){
         $this->UpdateViewCount();
         $city = City::where("slug",$slug)->where("is_active",1)->firstOrFail();
-        $shops = Shop::where("city_id",$city->id)->where("is_active",1)->where("is_suspended",0)->orderBy("id","desc")->get();
+        $shops = Shop::where("city_id",$city->id)->where("is_active",1)->where("is_suspended",0)->orderBy("id","desc")->paginate(15);
         return view("web.cityDetail",compact("city","shops"));
     }
 
@@ -63,7 +63,7 @@ class PageController extends Controller
     public function shops(){
         $this->UpdateViewCount();
         $feature_shops =  Shop::where("is_featured",1)->where("is_active",1)->where("is_suspended",0)->orderBy("id","desc")->get();
-        $other_shops =  Shop::where("is_featured",0)->where("is_active",1)->where("is_suspended",0)->orderBy("id","desc")->get();
+        $other_shops =  Shop::where("is_featured",0)->where("is_active",1)->where("is_suspended",0)->orderBy("id","desc")->paginate(15);
         return view("web.shops",compact("feature_shops","other_shops"));
     }
 

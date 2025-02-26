@@ -66,7 +66,7 @@ class ShopResource extends Resource
                 ->columnSpanFull(),
             FileUpload::make('profile_photo')
                 ->image()
-                ->nullable(),
+                ->required(),
             FileUpload::make('cover_photo')
                 ->image()
                 ->nullable(),

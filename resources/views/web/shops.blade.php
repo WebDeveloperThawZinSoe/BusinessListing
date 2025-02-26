@@ -135,7 +135,10 @@ $center_ads = App\Models\ADS::where("is_active",1)->where("type","content_center
             </div>
         </div>
         @endforeach
-
+           <!-- Pagination -->
+           <div class="d-flex justify-content-center mt-4">
+            {{ $other_shops->links('pagination::bootstrap-5') }}
+        </div>
       
     </div>
 </div>
