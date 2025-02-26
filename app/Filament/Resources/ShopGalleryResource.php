@@ -47,9 +47,12 @@ class ShopGalleryResource extends Resource
                 FileUpload::make('photos')
                 ->required()
                 ->image()
-                ->multiple(!$isEditPage) // Allow multiple files only if not on the edit page
-                ->maxFiles($isEditPage ? 1 : 10) // Allow 1 file for editing, 10 for creating
-                ->preserveFilenames(),
+                ->multiple(!$isEditPage)
+                ->maxFiles($isEditPage ? 1 : 10)
+                ->preserveFilenames(false) // This ensures unique names
+                ->storeFileNamesIn('photos') // Optionally store the names in the database
+                ->directory('shop-gallery') // Store files in a dedicated directory
+                ->getUploadedFileNameForStorageUsing(fn ($file) => uniqid() . '.' . $file->getClientOriginalExtension()),            
             ]);
     }
 

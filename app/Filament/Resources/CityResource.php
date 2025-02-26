@@ -68,6 +68,7 @@ class CityResource extends Resource
                     ->label('Upload City Icon')
                     ->preserveFilenames()
                     ->previewable()
+                    ->required()
                     ->getUploadedFileNameForStorageUsing(fn ($file) => $file->hashName())->columnSpanFull(),
 
                 Forms\Components\Toggle::make('is_active')
