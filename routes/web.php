@@ -6,6 +6,7 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RouteCheckController;
 use App\Http\Controllers\PageController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,3 +59,9 @@ Route::get("/shops",[PageController::class,"shops"])->name("shops");
 Route::get("/shop/{slug}",[PageController::class,"shopDetail"])->name("shop");
 Route::get("/faq",[PageController::class,"faq"])->name("faq");
 Route::get("/contact",[PageController::class,"contact"])->name("contact");
+
+
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+})->name('logout');

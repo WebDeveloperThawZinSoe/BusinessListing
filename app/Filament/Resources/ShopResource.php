@@ -123,6 +123,7 @@ class ShopResource extends Resource
                     ->label('Suspended'),
                 TextColumn::make('created_at')->dateTime()->sortable(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 SelectFilter::make('city_id')
                     ->relationship('city', 'name'),

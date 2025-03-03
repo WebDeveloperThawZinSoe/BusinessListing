@@ -87,6 +87,7 @@ class UserResource extends Resource
                 ->sortable()
                 ->label('Created At'),
         ])
+        ->defaultSort('created_at', 'desc')
         ->filters([
             Filter::make('Shop')
                 ->query(fn (Builder $query): Builder => $query->whereHas('roles', fn ($q) => $q->where('name', 'shop'))),

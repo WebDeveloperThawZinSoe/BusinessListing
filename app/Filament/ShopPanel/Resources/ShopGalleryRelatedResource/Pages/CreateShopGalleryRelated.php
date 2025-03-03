@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Filament\Resources\ShopGalleryResource\Pages;
+namespace App\Filament\ShopPanel\Resources\ShopGalleryRelatedResource\Pages;
 
-use App\Filament\Resources\ShopGalleryResource;
-use App\Models\ShopGallery;
-use Filament\Resources\Pages\CreateRecord;
-use Illuminate\Database\Eloquent\Model;
+use App\Filament\ShopPanel\Resources\ShopGalleryRelatedResource;
 use Filament\Actions;
+use Filament\Resources\Pages\CreateRecord;
+use App\Models\ShopGallery;
+use Illuminate\Database\Eloquent\Model;
 
-class CreateShopGallery extends CreateRecord
+class CreateShopGalleryRelated extends CreateRecord
 {
-    protected static string $resource = ShopGalleryResource::class;
+    protected static string $resource = ShopGalleryRelatedResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
             Actions\Action::make('Create Other')
-                ->url(fn () => ShopGalleryResource::getUrl('create'))
+                ->url(fn () => ShopGalleryRelatedResource::getUrl('create'))
                 ->icon('heroicon-o-plus')
                 ->button(),
         ];

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\ShopPanel\Resources;
 
-use App\Filament\Resources\SocialAccountResource\Pages;
-use App\Filament\Resources\SocialAccountResource\RelationManagers;
+use App\Filament\ShopPanel\Resources\SocialAccountRelatedResource\Pages;
+use App\Filament\ShopPanel\Resources\SocialAccountRelatedResource\RelationManagers;
 use App\Models\SocialAccount;
 use App\Models\Shop;
 use Filament\Forms;
@@ -21,14 +21,16 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Forms\Components\RichEditor;
+use Illuminate\Support\Facades\Auth;
 
-class SocialAccountResource extends Resource
+
+class SocialAccountRelatedResource extends Resource
 {
     protected static ?string $model = SocialAccount::class;
 
     protected static ?string $navigationIcon = 'heroicon-c-share';
 
-    protected static ?int $navigationSort = 13;
+    protected static ?int $navigationSort = 14;
 
     public static function form(Form $form): Form
     {
@@ -65,6 +67,16 @@ class SocialAccountResource extends Resource
             ]);
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        // Ensure that the user can only access products related to their own shops
+        $shopIds = Auth::user()->shops->pluck('id');  // Fetch the shop IDs for the authenticated user
+        
+        return parent::getEloquentQuery()
+            ->whereIn('shop_id', $shopIds);  // Only products related to the authenticated user's shops
+    }
+
+
     public static function table(Table $table): Table
     {
         return $table
@@ -83,10 +95,10 @@ class SocialAccountResource extends Resource
                 ->sortable()
                 ->label('Active'),
         ])
-        ->defaultSort('created_at', 'desc')
         ->filters([
             // Add filters if needed
         ])
+        ->defaultSort('created_at', 'desc')
         ->actions([
             Tables\Actions\EditAction::make(),
             Tables\Actions\DeleteAction::make(),
@@ -103,9 +115,9 @@ class SocialAccountResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSocialAccounts::route('/'),
-            'create' => Pages\CreateSocialAccount::route('/create'),
-            'edit' => Pages\EditSocialAccount::route('/{record}/edit'),
+            'index' => Pages\ListSocialAccountRelated::route('/'),
+            'create' => Pages\CreateSocialAccountRelated::route('/create'),
+            'edit' => Pages\EditSocialAccountRelated::route('/{record}/edit'),
         ];
     }
 }

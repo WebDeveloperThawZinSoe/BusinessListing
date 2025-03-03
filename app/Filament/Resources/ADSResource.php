@@ -110,6 +110,7 @@ class ADSResource extends Resource
                 //     ->sortable()
                 //     ->label('Created At'),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\Filter::make('Active')
                     ->query(fn (Builder $query): Builder => $query->where('is_active', true)),

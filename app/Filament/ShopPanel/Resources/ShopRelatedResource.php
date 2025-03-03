@@ -103,6 +103,7 @@ class ShopRelatedResource extends Resource
                 Tables\Columns\BooleanColumn::make('is_active')->boolean(),
                 Tables\Columns\BooleanColumn::make('is_verified')->boolean(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

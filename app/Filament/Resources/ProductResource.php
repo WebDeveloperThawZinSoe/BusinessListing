@@ -81,6 +81,7 @@ class ProductResource extends Resource
             BooleanColumn::make('is_suspended'),
             TextColumn::make('created_at')->dateTime()->sortable(),
         ])
+        ->defaultSort('created_at', 'desc')
         ->filters([
             Tables\Filters\Filter::make('Active')
             ->query(fn (Builder $query): Builder => $query->where('is_active', true)),

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\ShopPanel\Resources;
 
-use App\Filament\Resources\ShopGalleryResource\Pages;
-use App\Filament\Resources\ShopGalleryResource\RelationManagers;
+use App\Filament\ShopPanel\Resources\ShopGalleryRelatedResource\Pages;
+use App\Filament\ShopPanel\Resources\ShopGalleryRelatedResource\RelationManagers;
 use App\Models\ShopGallery;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -20,14 +20,16 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Forms\Components\RichEditor;
+use Illuminate\Support\Facades\Auth;
 
-class ShopGalleryResource extends Resource
+class ShopGalleryRelatedResource extends Resource
 {
     protected static ?string $model = ShopGallery::class;
 
     protected static ?string $navigationIcon = 'heroicon-c-camera';
 
     protected static ?int $navigationSort = 14;
+
 
     public static function form(Form $form): Form
     {
@@ -80,6 +82,15 @@ class ShopGalleryResource extends Resource
             ]);
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        // Ensure that the user can only access products related to their own shops
+        $shopIds = Auth::user()->shops->pluck('id');  // Fetch the shop IDs for the authenticated user
+        
+        return parent::getEloquentQuery()
+            ->whereIn('shop_id', $shopIds);  // Only products related to the authenticated user's shops
+    }
+
     public static function getRelations(): array
     {
         return [
@@ -90,9 +101,9 @@ class ShopGalleryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListShopGalleries::route('/'),
-            'create' => Pages\CreateShopGallery::route('/create'),
-            'edit' => Pages\EditShopGallery::route('/{record}/edit'),
+            'index' => Pages\ListShopGalleryRelated::route('/'),
+            'create' => Pages\CreateShopGalleryRelated::route('/create'),
+            'edit' => Pages\EditShopGalleryRelated::route('/{record}/edit'),
         ];
     }
 }
