@@ -40,6 +40,7 @@ class ShopPanelPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/ShopPanel/Widgets'), for: 'App\\Filament\\ShopPanel\\Widgets')
             ->widgets([
+                // Widgets\StatsOverview::class,
                 // Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
             ])
