@@ -42,26 +42,18 @@ class ProductResource extends Resource
             TextInput::make('name')
                 ->required()
                 ->maxLength(255),
-            // Select box for predefined types
-            // Select::make('type')
-            // ->label('Select Type')
-            // ->options([
-            //     'product' => 'Product',
-            //     'service' => 'Service'
+            
+            // RichEditor::make('description')
+            // ->toolbarButtons([
+            //     'bold', 'italic', 'underline', 'strike',
+            //     'h2', 'h3', 'blockquote',
+            //     'bulletList', 'orderedList',
+            //     'link', 'codeBlock', 'image'
             // ])
-            // ->default('product') // Set default value
-            // ->required(),
-            RichEditor::make('description')
-            ->toolbarButtons([
-                'bold', 'italic', 'underline', 'strike',
-                'h2', 'h3', 'blockquote',
-                'bulletList', 'orderedList',
-                'link', 'codeBlock', 'image'
-            ])
-            ->fileAttachmentsDisk('public') // Store images in the public disk
-            ->fileAttachmentsDirectory('uploads/products') // Specify the directory
-            ->fileAttachmentsVisibility('public') // Ensure visibility
-            ->columnSpanFull(),
+            // ->fileAttachmentsDisk('public') // Store images in the public disk
+            // ->fileAttachmentsDirectory('uploads/products') // Specify the directory
+            // ->fileAttachmentsVisibility('public') // Ensure visibility
+            // ->columnSpanFull(),
         
 
             TextInput::make('price')
