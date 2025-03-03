@@ -64,24 +64,26 @@ input:focus {
                                     @csrf
                                     <p>Please login to your account</p>
 
-                                    <div class="form-outline mb-4">
-                                        <input type="email" name="email" id="form2Example11"
+                                    <div class="form-floating mb-4">
+                                        <input type="email" name="email" id="email"
                                             class="form-control @error('email') is-invalid @enderror"
-                                            placeholder="Phone number or email address" value="{{ old('email') }}" />
-                                        <label class="form-label" for="form2Example11">Email</label>
+                                            placeholder="Email address" value="{{ old('email') }}" />
+                                        <label for="email">Email</label>
                                         @error('email')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
-                                    <div class="form-outline mb-4">
-                                        <input type="password" name="password" id="form2Example22"
-                                            class="form-control @error('password') is-invalid @enderror" />
-                                        <label class="form-label" for="form2Example22">Password</label>
+                                    <div class="form-floating mb-4">
+                                        <input type="password" name="password" id="password"
+                                            class="form-control @error('password') is-invalid @enderror"
+                                            placeholder="Password" />
+                                        <label for="password">Password</label>
                                         @error('password')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
+
 
                                     <div class="text-center pt-1 mb-5 pb-1">
                                         <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"

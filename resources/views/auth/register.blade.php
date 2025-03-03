@@ -52,42 +52,45 @@ input:focus {
                                     @csrf
                                     <p>Create a new account</p>
 
-                                    <div class="form-outline mb-4">
-                                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                                               placeholder="Full Name" value="{{ old('name') }}" />
-                                        <label class="form-label">Name</label>
+                                    <div class="form-floating mb-4">
+                                        <input type="text" name="name"
+                                            class="form-control @error('name') is-invalid @enderror" id="name"
+                                            placeholder="Full Name" value="{{ old('name') }}" />
+                                        <label for="name">Full Name</label>
                                         @error('name')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
-                                    <div class="form-outline mb-4">
-                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                                               placeholder="Email Address" value="{{ old('email') }}" />
-                                        <label class="form-label">Email</label>
+                                    <div class="form-floating mb-4">
+                                        <input type="email" name="email"
+                                            class="form-control @error('email') is-invalid @enderror" id="email"
+                                            placeholder="Email Address" value="{{ old('email') }}" />
+                                        <label for="email">Email Address</label>
                                         @error('email')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
-                                    <div class="form-outline mb-4">
-                                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                                               placeholder="Password" />
-                                        <label class="form-label">Password</label>
+                                    <div class="form-floating mb-4">
+                                        <input type="password" name="password"
+                                            class="form-control @error('password') is-invalid @enderror" id="password"
+                                            placeholder="Password" />
+                                        <label for="password">Password</label>
                                         @error('password')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
 
-                                    <div class="form-outline mb-4">
+                                    <div class="form-floating mb-4">
                                         <input type="password" name="password_confirmation" class="form-control"
-                                               placeholder="Confirm Password" />
-                                        <label class="form-label">Confirm Password</label>
+                                            id="password_confirmation" placeholder="Confirm Password" />
+                                        <label for="password_confirmation">Confirm Password</label>
                                     </div>
 
                                     <div class="text-center pt-1 mb-5 pb-1">
                                         <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
-                                                type="submit">
+                                            type="submit">
                                             Register
                                         </button>
                                     </div>
@@ -97,6 +100,7 @@ input:focus {
                                         <a href="/login" class="btn btn-outline-danger">Login</a>
                                     </div>
                                 </form>
+
 
                             </div>
                         </div>
