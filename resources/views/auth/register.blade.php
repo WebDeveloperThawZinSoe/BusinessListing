@@ -21,7 +21,7 @@ input:focus {
 
 @media (min-width: 768px) {
     .gradient-form {
-        height: 110vh !important;
+        height: 130vh !important;
     }
 }
 
