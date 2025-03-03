@@ -61,7 +61,7 @@ Route::get("/faq",[PageController::class,"faq"])->name("faq");
 Route::get("/contact",[PageController::class,"contact"])->name("contact");
 
 
-Route::post('/logout', function () {
-    Auth::logout();
-    return redirect('/');
-})->name('logout');
+// Route::post('/logout', function () {
+//     Auth::logout();
+//     return redirect('/');
+// })->name('logout');
