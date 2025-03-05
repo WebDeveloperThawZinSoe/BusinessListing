@@ -59,9 +59,13 @@ Route::get("/shops",[PageController::class,"shops"])->name("shops");
 Route::get("/shop/{slug}",[PageController::class,"shopDetail"])->name("shop");
 Route::get("/faq",[PageController::class,"faq"])->name("faq");
 Route::get("/contact",[PageController::class,"contact"])->name("contact");
+Route::post("/contact/submit",[PageController::class,"contact"])->name("contact.submit");
 
-
-// Route::post('/logout', function () {
-//     Auth::logout();
-//     return redirect('/');
-// })->name('logout');
+Route::middleware(['web'])->group(function () {
+    Route::post('/logout', function () {
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        return redirect('/');
+    })->name('logout');
+});

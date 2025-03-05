@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use App\Models\Contact;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Shop;
@@ -57,6 +59,38 @@ class PageController extends Controller
     //contact
     public function contact(){
         $this->UpdateViewCount();
+        return view("web.contact");
+    }
+
+    //submit
+    public function submit(Request $request)
+    {
+        // Validate form data + reCAPTCHA
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:15',
+            'message' => 'required|string|max:1000',
+            'g-recaptcha-response' => 'required'
+        ]);
+
+        // Verify reCAPTCHA
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => env('RECAPTCHA_SECRET_KEY'),
+            'response' => $request->input('g-recaptcha-response'),
+            'remoteip' => $request->ip(),
+        ]);
+
+        $recaptchaData = $response->json();
+
+        if (!$recaptchaData['success']) {
+            return back()->withErrors(['captcha' => 'reCAPTCHA verification failed. Please try again.']);
+        }
+
+        // Store contact message
+        Contact::create($request->only(['name', 'email', 'phone', 'message']));
+
+        return back()->with('success', 'Your message has been sent successfully!');
     }
 
     //shops

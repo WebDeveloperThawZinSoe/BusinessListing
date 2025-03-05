@@ -17,8 +17,8 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-
-
+use Filament\Navigation\NavigationItem;
+use Illuminate\Support\Facades\Auth;
 
 class ShopPanelPanelProvider extends PanelProvider
 {
@@ -41,12 +41,12 @@ class ShopPanelPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/ShopPanel/Widgets'), for: 'App\\Filament\\ShopPanel\\Widgets')
             ->widgets([
                 // Widgets\StatsOverview::class,
-                // Widgets\AccountWidget::class,
                 // Widgets\FilamentInfoWidget::class,
             ])
             ->login()
             ->passwordReset()
             ->profile()
+            
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -57,8 +57,6 @@ class ShopPanelPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-                
-
             ])
             ->authMiddleware([
                 Authenticate::class,
