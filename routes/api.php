@@ -22,5 +22,8 @@ use App\Http\Controllers\API\MainController;
 
 
 Route::get("/category",[MainController::class,"category"]);
-
 Route::get("/region",[MainController::class,"region"]);
+Route::get("/category/{id}",[MainController::class, 'categoryDetail']);
+Route::get("/region/{id}",[MainController::class, 'regionDetail']);
+Route::get("/shop/{id}",[MainController::class,"shopDetail"]);
+Route::get("/ads",[MainController::class,"getAds"]);
