@@ -21,7 +21,8 @@ class StatsOverview extends BaseWidget
 
     protected function getStats(): array
     {
-        $todayTraffic = Traffic::where("date",Carbon::today())->value("count");
+        $todayTraffic = Traffic::where("date",Carbon::today())->where("type","web")->value("count");
+        $todayTrafficMobile = Traffic::where("date",Carbon::today())->where("type","mobile")->value("count");
         return [
             Stat::make('Shop', Shop::count())
             ->description('Shop Count On Our Platform')
@@ -38,7 +39,9 @@ class StatsOverview extends BaseWidget
             Stat::make('Category', Category::where("is_active",1)->count())
                 ->description('Active Category Count On Our Platform')
                 ->color('success'),
-            Stat::make('Today Traffic',$todayTraffic )
+            Stat::make('Today Traffic (Web)',$todayTraffic )
+                ->color('success'),
+            Stat::make('Today Traffic (Mobile)',$todayTrafficMobile )
                 ->color('success'),
         ];
     }

@@ -116,7 +116,7 @@ class PageController extends Controller
     {
         $today = Carbon::today(); // Get current date
     
-        $viewCount = Traffic::where('date', $today)->first();
+        $viewCount = Traffic::where('date', $today)->where("type","web")->first();
     
         if ($viewCount) {
             // If today's record exists, increase count
@@ -125,6 +125,7 @@ class PageController extends Controller
             // If no record exists for today, create one
             Traffic::create([
                 'date' => $today,
+                "type" => "web",
                 'count' => 1
             ]);
         }

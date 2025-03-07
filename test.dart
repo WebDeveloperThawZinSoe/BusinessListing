@@ -1,66 +1,99 @@
-APP_NAME="Oo Aye Thein"
-APP_ENV=local
-APP_KEY=base64:Q7Ogx6/mSuErNa5vFDU99AWuaBM2f17Fje1mXGIlqZg=
-APP_DEBUG=true
-APP_URL=https://cryptodroplists.com/
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:html/parser.dart' show parse;
+import 'package:url_launcher/url_launcher.dart';
 
-LOG_CHANNEL=stack
-LOG_DEPRECATIONS_CHANNEL=null
-LOG_LEVEL=debug
+class ShopDetailScreen extends StatefulWidget {
+  final int shopId;
 
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=u204206732_bl
-DB_USERNAME=u204206732_qrewrwer
-DB_PASSWORD=Gqf2P9!o
+  ShopDetailScreen({required this.shopId});
 
+  @override
+  _ShopDetailScreenState createState() => _ShopDetailScreenState();
+}
 
+class _ShopDetailScreenState extends State<ShopDetailScreen> {
+  Map<String, dynamic>? shop;
+  List<dynamic> socials = [];
+  List<dynamic> shopGallery = [];
+  List<dynamic> products = [];
+  List<dynamic> ads = [];
+  bool isLoading = true;
 
-BROADCAST_DRIVER=log
-CACHE_DRIVER=file
-FILESYSTEM_DISK=local
-QUEUE_CONNECTION=sync
-SESSION_DRIVER=database
-SESSION_LIFETIME=120
-
-MEMCACHED_HOST=127.0.0.1
-
-REDIS_HOST=127.0.0.1
-REDIS_PASSWORD=null
-REDIS_PORT=6379
-
-MAIL_MAILER=smtp
-MAIL_HOST=mailpit
-MAIL_PORT=1025
-MAIL_USERNAME=null
-MAIL_PASSWORD=null
-MAIL_ENCRYPTION=null
-MAIL_FROM_ADDRESS="hello@example.com"
-MAIL_FROM_NAME="${APP_NAME}"
-
-AWS_ACCESS_KEY_ID=
-AWS_SECRET_ACCESS_KEY=
-AWS_DEFAULT_REGION=us-east-1
-AWS_BUCKET=
-AWS_USE_PATH_STYLE_ENDPOINT=false
-
-PUSHER_APP_ID=
-PUSHER_APP_KEY=
-PUSHER_APP_SECRET=
-PUSHER_HOST=
-PUSHER_PORT=443
-PUSHER_SCHEME=https
-PUSHER_APP_CLUSTER=mt1
-
-VITE_APP_NAME="${APP_NAME}"
-VITE_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
-VITE_PUSHER_HOST="${PUSHER_HOST}"
-VITE_PUSHER_PORT="${PUSHER_PORT}"
-VITE_PUSHER_SCHEME="${PUSHER_SCHEME}"
-VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
-
-RECAPTCHA_SITE_KEY=6LdA7ukqAAAAAO6T3GWQoiRgsY1Se-16IGi0Q2Ul
-RECAPTCHA_SECRET_KEY=6LdA7ukqAAAAAJztvUPIPHHFyKSXcYJzeEpxjJ_m
+  @override
+  void initState() {
+    super.initState();
+    fetchShopDetails();
+    fetchAds();
+  }
 
 
+
+  Future<void> fetchAds() async {
+    final response = await http.get(
+        Uri.parse('https://cryptodroplists.com/api/ads'));
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      setState(() {
+        ads = data['data'].where((ad) => ad['type'] == 'content_center').toList();
+      });
+    }
+  }
+
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    double? latitude = double.tryParse(shop?['latitude']?.toString() ?? '');
+    double? longitude = double.tryParse(shop?['longitude']?.toString() ?? '');
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(shop?['name'] ?? "Loading..."),
+      ),
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+            
+
+              // Ads (Content Center)
+              if (ads.isNotEmpty)
+                Column(
+                  children: ads.map((ad) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.network(
+                          'https://cryptodroplists.com/storage/' + ad['image'],
+                          width: double.infinity,
+                          height: 70,
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Center(child: CircularProgressIndicator());
+                          },
+                          errorBuilder: (context, error, stackTrace) => Container(
+                            height: 250,
+                            color: Colors.grey[300],
+                            child: Icon(Icons.broken_image, size: 50),
+                          ),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

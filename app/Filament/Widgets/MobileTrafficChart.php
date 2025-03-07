@@ -6,14 +6,16 @@ use Filament\Widgets\ChartWidget;
 use App\Models\Traffic;
 use Carbon\Carbon;
 
-class TrafficChart extends ChartWidget
+class MobileTrafficChart extends ChartWidget
 {
-    protected static ?string $heading = 'Website Traffic (Web)';
+    protected static ?string $heading = 'Mobile Traffic (Mobile)';
     protected static string $type = 'line';
+
+    protected static ?int $sort = 20;
 
     protected function getData(): array
     {
-        $trafficData = Traffic::where('date', '>=', Carbon::now()->subDays(7))->where("type","web")
+        $trafficData = Traffic::where('date', '>=', Carbon::now()->subDays(7))->where("type","mobile")
         ->orderBy('date')
         ->pluck('count', 'date')
         ->toArray();

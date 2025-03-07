@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('traffic', function (Blueprint $table) {
             $table->id();
             $table->date('date');
+            $table->string("type")->default("web");
             $table->integer("count")->default(0);
             $table->timestamps();
         });
